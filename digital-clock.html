@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .clock {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 20px 0;
+        }
+        .time-zone {
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Digital Clock</h1>
+    <div class="clock">
+        <div class="time-zone" id="utc">UTC: <span id="utc-time"></span></div>
+        <div class="time-zone" id="pst">PST: <span id="pst-time"></span></div>
+        <div class="time-zone" id="est">EST: <span id="est-time"></span></div>
+    </div>
+    <script>
+        function updateClocks() {
+            const utcDate = new Date();
+            const options = { timeZoneName: 'short', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+
+            document.getElementById('utc-time').textContent = utcDate.toLocaleTimeString('en-US', { timeZone: 'UTC', ...options });
+            document.getElementById('pst-time').textContent = utcDate.toLocaleTimeString('en-US', { timeZone: 'America/Los_Angeles', ...options });
+            document.getElementById('est-time').textContent = utcDate.toLocaleTimeString('en-US', { timeZone: 'America/New_York', ...options });
+        }
+
+        setInterval(updateClocks, 1000);
+        updateClocks(); // initial call
+    </script>
+</body>
+</html>
